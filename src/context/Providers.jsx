@@ -1,18 +1,17 @@
 "use client";
-import { accountReducer } from "@/redux/reducers/account";
-import { bonusReducer } from "@/redux/reducers/bonus";
+import rewardReducer from "@/reducers/reward";
+import accountReducer from "../slices/accountSlice";
+import bonusReducer from "../slices/bonusSlice";
+import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import logger from "redux-logger";
-import thunk from "redux-thunk";
 
-const store = createStore(
-  combineReducers({
-    accounts: accountReducer,
+const store = configureStore({
+  reducer: {
+    account: accountReducer,
     bonus: bonusReducer,
-  }),
-  applyMiddleware(thunk, logger)
-);
+    reward:rewardReducer
+  },
+});
 
 const Providers = ({ children }) => {
   return <Provider store={store}>{children}</Provider>;
